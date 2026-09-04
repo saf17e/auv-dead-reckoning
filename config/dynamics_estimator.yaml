@@ -1,0 +1,50 @@
+# Static / prior configuration for the dead-reckoning estimator (Nodes A & B).
+#
+# `vehicle_params` and `cad_source` below are literature/placeholder values
+# until cad_dynamics.py has been run against the real STEP export — see
+# dead_reckoning/README.md. Running cad_dynamics.py regenerates this file's
+# `vehicle_params`/`cad_source` blocks in place (it preserves `coefficients`
+# and `runtime` untouched).
+#
+# `coefficients` mirrors dynamics_core.DynamicsCoefficients field-for-field
+# and is the fallback Node B uses when dynamics_estimator_fitted.yaml (Node
+# A's live output) doesn't exist yet.
+
+vehicle_params:
+  mass_kg: 12.0
+  inertia_z_kgm2: 0.35
+  rho_water_kgm3: 997.0
+
+cad_source:
+  step_path: ""
+  volume_m3: null
+  center_of_mass_m: null
+  density_kgm3: null
+
+coefficients:
+  xu_dot_scale: 1.0
+  yv_dot_scale: 1.0
+  nr_dot_scale: 1.0
+  inertia_yaw_added_kgm2: 0.05
+  cd_scale: 1.0
+  d_lin: [2.0, 3.0, 0.5]
+  d_quad_yaw: 0.3
+  v_regime_mps: 0.3
+  blend_width_mps: 0.1
+  k_low_dquad: 1.0
+  k_high_dquad: 1.0
+  k_low_ma: 1.0
+  k_high_ma: 1.0
+  pwm_scale_fwd: 1.0
+  pwm_bias_fwd: 0.0
+  pwm_scale_rev: 1.0
+  pwm_bias_rev: 0.0
+
+runtime:
+  loop_rate_hz: 100.0
+  final_pwm_topic: /debug/final_pwm
+  bno_topic: /bno
+  sonar_x_topic: /sonar/x
+  sonar_y_topic: /sonar/y
+  pose_topic: /dead_reckoning/pose
+  sonar_confidence_threshold: 90.0
